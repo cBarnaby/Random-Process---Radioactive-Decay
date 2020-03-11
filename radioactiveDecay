@@ -1,0 +1,34 @@
+import matplotlib.pyplot as plt
+import numpy as np
+import random
+
+lambda1 = 0.005
+time_max = 500
+number = nloop = 10
+
+random.seed()
+
+t = np.arange(0, time_max + 1)
+N = np.zeros(time_max + 1)
+deltaN = np.zeros(time_max + 2)
+
+
+for time in range(0, time_max+1):
+    for atom in range(1, number+1):
+        decay = random.random()
+        if (decay < lambda1):
+            nloop -= 1
+    number = nloop
+    N[time] = number
+    deltaN[time+1] = N[time] - N[time-1]
+
+plt.subplot(2,1,1)
+plt.xlabel("$t$")
+plt.ylabel("$ln N$")
+plt.plot(t,np.log(N),"-")
+
+plt.subplot(2,1,2)
+plt.xlabel("$delta(t)$")
+plt.ylabel("$ln(delta(N))$")
+plt.plot(np.full(time_max+1, 1),deltaN[0:501],"-")
+plt.show()
